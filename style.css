@@ -1,0 +1,75 @@
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	margin: 30px;
+}
+
+.card {
+	height: 400px;
+	width: 300px;
+	border: 3px solid black;
+	border-radius: 10px;
+	box-shadow: 4px 7px #888888;
+	position: relative;
+	font-size: 14px;
+	background: #35bff2;
+}
+
+.card .general {
+	position: relative;
+	height: 270px;
+}
+
+.card .general .left {
+	display: inline-block;
+	height: 100%;
+	border: 1px solid black;
+	width: 60px;
+	float: left;
+}
+
+.small-icon {
+	height: 46px;
+	width: 46px;
+	margin: 17px 6px;
+	border: 1px solid black;
+}
+
+.card .general .center {
+	display: inline-block;
+	height: 100%;
+	width: 174px;
+	border: 1px solid black;
+}
+
+.card .general .center .image {
+	height: 240px;
+	width: 174px;
+}
+
+.card .general .center .image img {
+	width:100%; 
+	height:100%;
+}
+
+.card .general .center .name {
+	height: 30px;
+	border-top: 1px solid black;
+	text-align: center;
+}
+
+.card .general .right {
+	display: inline-block;
+	height: 100%;
+	border: 1px solid black;
+	width: 60px;
+	float: right;
+}
+
+.card .detailed {
+	border-top: 1px solid black;
+}
