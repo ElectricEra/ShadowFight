@@ -16,7 +16,29 @@ body {
 	box-shadow: 4px 7px #888888;
 	position: relative;
 	font-size: 14px;
+	transition: top 1s;
+}
+
+#card1 .card:hover {
+	left: 20px;
+}
+
+#card2 .card:hover {
+	left: -20px;
+}
+
+
+#card1, #card2 {
+	display: inline-block;
+	margin: 30px;
+}
+
+#card1 .card {
 	background: #35bff2;
+}
+
+#card2 .card {
+	background: #bb3333;
 }
 
 .card .general {
