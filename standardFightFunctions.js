@@ -9,26 +9,34 @@ function getValue(min, max) {
 }
 
 function coreHitLogic(minion1, minion2) {
+	
+	//Checking if minion will crit
 	if (roll(minion1.critChance)) {
 		minion1.attackThisTurn *= minion1.critModifier;
 		console.log("Critical strike!")
 	}
 
-	if (roll(minion2.armorProcChance)) {
-		if (minion2.armorDurability > 0) {
-			minion2.armorDurability -= 1;
-			if (minion2.armorPower < minion1.attackThisTurn) {
-				minion1.damageToApply = minion1.attackThisTurn - minion2.armorPower;
-			} else {
-				minion1.damageToApply = 0;
-			}
+	//Setting current damage to the rolled value
+	minion1.damageToApply = minion1.attackThisTurn;
+
+	//If unit's armor can proc, if he has armor and if the attacking value is greater than 0
+	if (roll(minion2.armorProcChance) && minion2.armorDurability > 0 && minion1.attackThisTurn > 0) {
+		
+		//Minion loses 1 armor durability
+		minion2.armorDurability -= 1;
+		
+		// If attack is greater than armor / is smaller than armor
+		if (minion2.armorPower < minion1.attackThisTurn) {
+			minion1.damageToApply = minion1.attackThisTurn - minion2.armorPower;
 		} else {
-			minion1.damageToApply = minion1.attackThisTurn;
+			minion1.damageToApply = 0;
 		}
+	
 	} else {
 		console.log("Target\'s armor didn't work.")
 	}
 	
+	//Applying damage
 	minion2.health -= minion1.damageToApply;
 }
 
@@ -55,37 +63,20 @@ function attack(minion1, minion2) {
 	console.log(minion2);
 }
 
-function prepareMinionToFight(minion, friendlyPassive, friendlyAura, enemyPassive, enemyAura) {
+function prepareMinionToFight(minion) {
+	minion.attackThisTurn = 0;
+	minion.damageToApply = 0;
+	minion.health = minion.basicHealth;
 }
 
 function displayMinion() {
-	document.getElementById('card1').innerHTML = `
-		<div class='card'>
-			<div class='general'>
-				<div class='left'>
-					
-				</div>
-				<div class='image'>
-					<img src='' />
-				</div>
-				<div class='right'>
-				
-				</div>
-			</div>
-			<div class='detailed'>
-			</div>
-			<div class='text'>
-				<div>
-			</div>
-		</div>
-	`
 }
 
 let minion1 = {
     "name": "Swordmaster",
     "race": "Human",
     "level": 1,
-    "health": 12,
+    "basicHealth": 12,
     "hitChance": 1,
     "amountOfAttacks": 1,
     "attackMin": 2,
@@ -102,7 +93,7 @@ let minion1 = {
     "name": "Swordmaster", //Name
     "race": "Human", //Race
     "level": 1, //Level
-    "health": 12, //Starting health
+    "basicHealth": 12, //Starting health
     "hitChance": 1, // Hit chance [0%..100%]-[0..1]
     "amountOfAttacks": 1, // Amount of attacks [0..1..]-[0..1..]
     "attackMin": 2, // Minimal attack value
@@ -119,7 +110,7 @@ let minion2 = {
     "name": "Imp",
     "race": "Demon",
     "level": 1,
-    "health": 12,
+    "basicHealth": 12,
     "hitChance": 1,
     "amountOfAttacks": 1,
     "attackMin": 2,
