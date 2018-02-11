@@ -1,3 +1,5 @@
+const animationOffset = 500;
+
 function roll(a) {
 	return a >= Math.random();
 }
@@ -71,10 +73,35 @@ function prepareMinionToFight(minion) {
 }
 
 function displayMinion(card, minion2) {
-	card.getElementsByClassName('health')[0].innerHTML = minion2.health;
-	card.getElementsByClassName('attack')[0].innerHTML = `${minion2.attackMin}-${minion2.attackMax}`;
-	card.getElementsByClassName('armor')[0].innerHTML = `${minion2.armorPower}-${minion2.armorDurability}`;
-	card.getElementsByClassName('attackThisTurn')[0].innerHTML = minion2.attackThisTurn;
+	var health = card.getElementsByClassName('health')[0];
+	var attack = card.getElementsByClassName('attack')[0];
+	var armor = card.getElementsByClassName('armor')[0];
+	var attackThisTurn = card.getElementsByClassName('attackThisTurn')[0];
+	var newHealth = minion2.health;
+	var newAttack = `${minion2.attackMin}-${minion2.attackMax}`;
+	var newArmor = `${minion2.armorPower}-${minion2.armorDurability}`;
+	var newAttackThisTurn = minion2.attackThisTurn;
+	if (health.innerHTML != newHealth) {
+		addAnimation(health, 'highlight', animationOffset)
+	}
+	if (attack.innerHTML != newAttack) {
+		addAnimation(attack, 'highlight', animationOffset)
+	}
+	if (armor.innerHTML != newArmor) {
+		addAnimation(armor, 'highlight', animationOffset)
+	}
+	if (attackThisTurn.innerHTML != newAttackThisTurn) {
+		addAnimation(attackThisTurn, 'highlight', animationOffset)
+	}
+	health.innerHTML = newHealth;
+	attack.innerHTML = newAttack;
+	armor.innerHTML = newArmor;
+	attackThisTurn.innerHTML = newAttackThisTurn;
+}
+
+function addAnimation(element, className, timeout) {
+	element.classList.toggle(className, true)
+	setTimeout(()=>{element.classList.toggle(className, false)}, timeout);
 }
 
 /*
@@ -131,18 +158,23 @@ let minion2 = {
 let card1 = document.getElementById("card1");
 let card2 = document.getElementById("card2");
 
-prepareMinionToFight(minion1)
-prepareMinionToFight(minion2)
+prepareMinionToFight(minion1);
+prepareMinionToFight(minion2);
 
-card1.addEventListener('click', ()=>{
+displayMinion(card1, minion1);
+displayMinion(card2, minion2);
+
+card1.addEventListener('click', () => {
 	hit(minion1, minion2);
+	addAnimation(document.querySelector('#card1 > .card'), 'move-right', animationOffset);
 	displayMinion(card1, minion1);
 	displayMinion(card2, minion2);
 	console.log(minion1, minion2);
 })
 
-card2.addEventListener('click', ()=>{
+card2.addEventListener('click', () => {
 	hit(minion2, minion1);
+	addAnimation(document.querySelector('#card2 > .card'), 'move-left', animationOffset)
 	displayMinion(card1, minion1);
 	displayMinion(card2, minion2);
 	console.log(minion1, minion2);

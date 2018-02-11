@@ -73,14 +73,24 @@
 	border: 1px solid black;
 }
 
+.right .small-icon {
+	text-align: center;
+	font-size: 18px;
+	padding: 8px;
+}
+
 .card .detailed {
 	border-top: 1px solid black;
 }
 
-#card1 .card:hover {
+.move-right {
 	left: 20px;
 }
 
-#card2 .card:hover {
+.move-left {
 	left: -20px;
+}
+
+.highlight {
+	background: yellow;
 }
