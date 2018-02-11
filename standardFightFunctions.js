@@ -43,6 +43,7 @@ function coreHitLogic(minion1, minion2) {
 function hit(minion1, minion2) {
 	if (roll(minion1.canHit)) {
 		if (roll(minion1.hitChance)) {
+			getAttack(minion1);
 			coreHitLogic(minion1, minion2);	
 		} else {
 			console.log("Unit missed his attack.")
@@ -69,24 +70,11 @@ function prepareMinionToFight(minion) {
 	minion.health = minion.basicHealth;
 }
 
-function displayMinion() {
-}
-
-let minion1 = {
-    "name": "Swordmaster",
-    "race": "Human",
-    "level": 1,
-    "basicHealth": 12,
-    "hitChance": 1,
-    "amountOfAttacks": 1,
-    "attackMin": 2,
-    "attackMax": 3,
-    "critChance": 0,
-    "critModifier": 1,
-    "armorProcChance": 1,
-    "armorPower": 1,
-    "armorDurability": 3,
-    "canHit": 1
+function displayMinion(card, minion2) {
+	card.getElementsByClassName('health')[0].innerHTML = minion2.health;
+	card.getElementsByClassName('attack')[0].innerHTML = `${minion2.attackMin}-${minion2.attackMax}`;
+	card.getElementsByClassName('armor')[0].innerHTML = `${minion2.armorPower}-${minion2.armorDurability}`;
+	card.getElementsByClassName('attackThisTurn')[0].innerHTML = minion2.attackThisTurn;
 }
 
 /*
@@ -106,6 +94,23 @@ let minion1 = {
     "canHit": 1 // Can minion arrack this turn [0%..100%]-[0..1]
 */
 
+let minion1 = {
+    "name": "Swordmaster",
+    "race": "Human",
+    "level": 1,
+    "basicHealth": 12,
+    "hitChance": 1,
+    "amountOfAttacks": 1,
+    "attackMin": 2,
+    "attackMax": 3,
+    "critChance": 0,
+    "critModifier": 1,
+    "armorProcChance": 1,
+    "armorPower": 1,
+    "armorDurability": 3,
+    "canHit": 1
+}
+
 let minion2 = {
     "name": "Imp",
     "race": "Demon",
@@ -123,4 +128,22 @@ let minion2 = {
     "canHit": 1
 }
 
-//displayMinion();
+let card1 = document.getElementById("card1");
+let card2 = document.getElementById("card2");
+
+prepareMinionToFight(minion1)
+prepareMinionToFight(minion2)
+
+card1.addEventListener('click', ()=>{
+	hit(minion1, minion2);
+	displayMinion(card1, minion1);
+	displayMinion(card2, minion2);
+	console.log(minion1, minion2);
+})
+
+card2.addEventListener('click', ()=>{
+	hit(minion2, minion1);
+	displayMinion(card1, minion1);
+	displayMinion(card2, minion2);
+	console.log(minion1, minion2);
+})
