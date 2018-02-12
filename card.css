@@ -48,6 +48,24 @@
 	height: 100%;
 	width: 174px;
 	border: 1px solid black;
+	position: relative;
+}
+
+.image-animation {
+	display: none;
+}
+
+.card .general .center .image-animation.active {
+	display: block;
+	position: absolute;
+	top: 100px;
+	left: 72px;
+	height: 40px;
+	width: 40px;
+	background: yellow;
+	text-align: center;
+	font-size: 18px;
+	padding: 8px 0;
 }
 
 .card .general .center .image {
@@ -56,8 +74,8 @@
 }
 
 .card .general .center .image img {
-	width:100%; 
-	height:100%;
+	width: 100%; 
+	height: 100%;
 }
 
 .card .general .center .name {
@@ -76,7 +94,7 @@
 .right .small-icon {
 	text-align: center;
 	font-size: 18px;
-	padding: 8px;
+	padding: 8px 0;
 }
 
 .card .detailed {

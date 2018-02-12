@@ -1,5 +1,5 @@
-function roll(a) {
-	return a >= Math.random();
+function roll(a, pseudoRoll = Math.random()) {
+	return a >= pseudoRoll;
 }
 
 function getValue(min, max) {
@@ -38,6 +38,8 @@ function coreHitLogic(minion1, minion2) {
 	
 	//Applying damage
 	minion2.health -= minion1.damageToApply;
+
+	checkDeath(minion2);
 }
 
 function hit(minion1, minion2) {
@@ -64,8 +66,16 @@ function attack(minion1, minion2) {
 	console.log(minion2);
 }
 
+function checkDeath(minion) {
+	if (minion.health <= 0) {
+		minion.health = 0;
+		minion.isAlive = false;
+	}
+}
+
 function prepareMinionToFight(minion) {
 	minion.attackThisTurn = 0;
 	minion.damageToApply = 0;
 	minion.health = minion.basicHealth;
+	minion.isAlive = true;
 }
