@@ -46,3 +46,10 @@ function addAnimation(element, className, timeout) {
 	element.classList.toggle(className, true)
 	setTimeout(()=>{element.classList.toggle(className, false)}, timeout);
 }
+
+function cardHitAnimation(element, className, timeout) {
+	element.classList.toggle('lift', true);
+	setTimeout(()=>{element.classList.toggle(className, true)}, timeout * 0.2);
+	setTimeout(()=>{element.classList.toggle(className, false)}, timeout * 0.8);
+	setTimeout(()=>{element.classList.toggle('lift', false)}, timeout * 1.0);
+}

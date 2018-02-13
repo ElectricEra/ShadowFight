@@ -12,7 +12,7 @@ displayMinion(card2, minion2);
 
 card1.addEventListener('click', () => {
 	hit(minion1, minion2);
-	addAnimation(document.querySelector('#card1 > .card'), 'move-right', animationOffset);
+	cardHitAnimation(document.querySelector('#card1 > .card'), 'move-right', animationOffset);
 	displayMinion(card1, minion1);
 	displayMinion(card2, minion2, true);
 	console.log(minion1, minion2);
@@ -20,7 +20,7 @@ card1.addEventListener('click', () => {
 
 card2.addEventListener('click', () => {
 	hit(minion2, minion1);
-	addAnimation(document.querySelector('#card2 > .card'), 'move-left', animationOffset)
+	cardHitAnimation(document.querySelector('#card2 > .card'), 'move-left', animationOffset)
 	displayMinion(card2, minion2);
 	displayMinion(card1, minion1, true);
 	console.log(minion1, minion2);
