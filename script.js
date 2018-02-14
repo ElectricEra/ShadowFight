@@ -21,6 +21,9 @@ card1.addEventListener('click', () => {
 		cardHitAnimation(document.querySelector('#card1 > .card'), 'move-right', animationOffset);
 		displayMinion(card1, minion1);
 		displayMinion(card2, minion2, true);
+		if (!minion2.isAlive) {
+			displayWinner(card1);
+		}
 		console.log(minion1, minion2);
 	}
 })
@@ -33,6 +36,20 @@ card2.addEventListener('click', () => {
 		cardHitAnimation(document.querySelector('#card2 > .card'), 'move-left', animationOffset)
 		displayMinion(card2, minion2);
 		displayMinion(card1, minion1, true);
+		if (!minion1.isAlive) {
+			displayWinner(card2);
+		}
 		console.log(minion1, minion2);
 	}
 })
+
+document.getElementById('auto-fight').addEventListener('click', () => {
+	fight(minion1, minion2);
+})
+
+function fight(minion1, minion2) {
+	var step1 = false, step2 = false;
+	setTimeout( () => { card1.click(); step1 = true; }, 0);
+	setTimeout( () => { card2.click(); step2 = true; }, 1200);
+	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null}, 2400 )
+}

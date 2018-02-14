@@ -118,3 +118,7 @@
 	transform: translate(-4px, -7px);
 	box-shadow: 8px 14px #888888;
 }
+
+.winner {
+	transform: translateY(-20px);
+}

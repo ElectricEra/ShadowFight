@@ -53,3 +53,7 @@ function cardHitAnimation(element, className, timeout) {
 	setTimeout(()=>{element.classList.toggle(className, false)}, timeout * 0.8);
 	setTimeout(()=>{element.classList.toggle('lift', false)}, timeout * 1.0);
 }
+
+function displayWinner(element) {
+	setTimeout(()=>element.classList.add('winner'),1500);
+}
