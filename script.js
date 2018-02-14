@@ -48,8 +48,7 @@ document.getElementById('auto-fight').addEventListener('click', () => {
 })
 
 function fight(minion1, minion2) {
-	var step1 = false, step2 = false;
-	setTimeout( () => { card1.click(); step1 = true; }, 0);
-	setTimeout( () => { card2.click(); step2 = true; }, 1200);
-	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null}, 2400 )
+	setTimeout( () => { card1.click(); }, 0);
+	setTimeout( () => { card2.click(); }, 1200);
+	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 2400);
 }
