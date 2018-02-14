@@ -17,7 +17,7 @@ What will be next:
 What is planned:
 
 - Minions will have auras
-- Ability have interactible fight (drag/drop minions to fight)
+- Interactive fight (drag/drop minions to fight)
 - Animation
 - (Probably) sound
 
