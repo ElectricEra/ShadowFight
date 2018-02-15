@@ -1,11 +1,20 @@
 const animationOffset = 1000;
+const animationStep = 0.2
+const animationFrames = 1 / animationStep;
+const animationFrameOffset = animationStep * animationOffset;
+
+function addAnimationQueue() {}
+
+function setIntoClassContainer(parent, className, value, index = 0) {
+	parent.getElementsByClassName(className)[index].innerHTML = value;
+}
 
 function displayMinionStaticData(card, minion) {
-	var detailed = card.getElementsByClassName('detailed')[0];
-	detailed.innerHTML = `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`;
-	card.getElementsByClassName('name')[0].innerHTML = minion.name;
-	card.getElementsByClassName('level')[0].innerHTML = minion.level;
-	card.getElementsByClassName('race')[0].innerHTML = minion.race;
+	card.querySelector(".image > img").src = minion.img
+	setIntoClassContainer(card, 'name', minion.name);
+	setIntoClassContainer(card, 'level', minion.level);
+	setIntoClassContainer(card, 'race', minion.race);
+	setIntoClassContainer(card, 'detailed', `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`);
 }
 
 function displayMinion(card, minion2, attacked = false) {

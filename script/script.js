@@ -1,8 +1,16 @@
+function fight(minion1, minion2) {
+	setTimeout( () => { card1.click(); }, 0);
+	setTimeout( () => { card2.click(); }, 1200);
+	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 2400);
+}
+
 let card1 = document.getElementById("card1");
 let card2 = document.getElementById("card2");
 
-let minion1 = Object.create(Swordmaster);
-let minion2 = Object.create(Imp);
+let minions = [Swordmaster, Gog, Priest]
+
+let minion1 = Object.create(minions[Math.floor(Math.random()*minions.length)]);
+let minion2 = Object.create(minions[Math.floor(Math.random()*minions.length)]);
 
 let minion1Debouncer = true;
 let minion2Debouncer = true;
@@ -56,9 +64,3 @@ card2.addEventListener('click', () => {
 document.getElementById('auto-fight').addEventListener('click', () => {
 	fight(minion1, minion2);
 })
-
-function fight(minion1, minion2) {
-	setTimeout( () => { card1.click(); }, 0);
-	setTimeout( () => { card2.click(); }, 1200);
-	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 2400);
-}
