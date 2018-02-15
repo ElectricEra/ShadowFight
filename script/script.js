@@ -15,6 +15,9 @@ displayMinion(card2, minion2);
 displayMinionStaticData(card1, minion1);
 displayMinionStaticData(card2, minion2);
 
+applyEffect(0, minion1, minion2);
+applyEffect(0, minion2, minion1);
+
 card1.addEventListener('click', () => {
 	if (minion2.isAlive && minion1.isAlive && minion1Debouncer) {
 		minion1Debouncer = false;
@@ -25,6 +28,7 @@ card1.addEventListener('click', () => {
 		displayMinion(card2, minion2, true);
 		if (!minion2.isAlive) {
 			displayWinner(card1);
+			applyEffect(4, minion1, minion2)
 		}
 	}
 })
@@ -42,6 +46,7 @@ card2.addEventListener('click', () => {
 		displayMinion(card1, minion1, true);
 		if (!minion1.isAlive) {
 			displayWinner(card2);
+			applyEffect(4, minion2, minion1)
 		}
 
 		applyEffect(2, minion2, minion1);
@@ -53,10 +58,7 @@ document.getElementById('auto-fight').addEventListener('click', () => {
 })
 
 function fight(minion1, minion2) {
-
-	applyEffect(0, minion1, minion2);
-
 	setTimeout( () => { card1.click(); }, 0);
 	setTimeout( () => { card2.click(); }, 1200);
-	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : applyEffect(4, minion1, minion2) }, 2400);
+	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 2400);
 }

@@ -4,8 +4,8 @@ function displayMinionStaticData(card, minion) {
 	var detailed = card.getElementsByClassName('detailed')[0];
 	detailed.innerHTML = `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`;
 	card.getElementsByClassName('name')[0].innerHTML = minion.name;
-
-
+	card.getElementsByClassName('level')[0].innerHTML = minion.level;
+	card.getElementsByClassName('race')[0].innerHTML = minion.race;
 }
 
 function displayMinion(card, minion2, attacked = false) {

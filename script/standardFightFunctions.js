@@ -81,23 +81,26 @@ function prepareMinionToFight(minion) {
 }
 
 function applyEffect(whenToModify, minion1, minion2) {
-	console.log(minion1.auraEffects[0].whenToModify, whenToModify)
-	if (minion1.auraEffects[0].whenToModify === whenToModify) {
-		console.log("1")
-		let minion = minion1.auraEffects[0];
-		if (checkRace(minion.affectedRace, minion2.race) && checkLevel(minion.affectedLevel, minion2.level)) {
-			if (minion.maxProcs && roll(minion.chance)) {
-				minion1[minion.effect[0].statToModify] += getValue(minion.effect[0].valueMin, minion.effect[0].valueMax);
+	minion1.auraEffects.forEach((minionAuraEffects) => {
+
+		if (minionAuraEffects.whenToModify === whenToModify) {
+			if (checkRace(minionAuraEffects.affectedRace, minion2.race) && checkLevel(minionAuraEffects.affectedLevel, minion2.level)) {
+				if (minionAuraEffects.maxProcs && roll(minionAuraEffects.chance)) {
+					
+					minionAuraEffects.effect.forEach((effect)=> {
+						minion1[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
+					})
+				}
 			}
 		}
-	}
+	})
 }
 
 function checkRace(race, raceToCkeck) {
 	console.log(race)
-	return race === 'all' || (race.includes(raceToCkeck));
+	return race === 'all' || race.includes(raceToCkeck);
 }
 
 function checkLevel(level, levelToCheck) {
-	return level === 'all' || (level.includes(levelToCkeck));
+	return level === 'all' || level.includes(levelToCkeck);
 }
