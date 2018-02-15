@@ -79,3 +79,25 @@ function prepareMinionToFight(minion) {
 	minion.health = minion.basicHealth;
 	minion.isAlive = true;
 }
+
+function applyEffect(whenToModify, minion1, minion2) {
+	console.log(minion1.auraEffects[0].whenToModify, whenToModify)
+	if (minion1.auraEffects[0].whenToModify === whenToModify) {
+		console.log("1")
+		let minion = minion1.auraEffects[0];
+		if (checkRace(minion.affectedRace, minion2.race) && checkLevel(minion.affectedLevel, minion2.level)) {
+			if (minion.maxProcs && roll(minion.chance)) {
+				minion1[minion.effect[0].statToModify] += getValue(minion.effect[0].valueMin, minion.effect[0].valueMax);
+			}
+		}
+	}
+}
+
+function checkRace(race, raceToCkeck) {
+	console.log(race)
+	return race === 'all' || (race.includes(raceToCkeck));
+}
+
+function checkLevel(level, levelToCheck) {
+	return level === 'all' || (level.includes(levelToCkeck));
+}

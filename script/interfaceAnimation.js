@@ -1,5 +1,13 @@
 const animationOffset = 1000;
 
+function displayMinionStaticData(card, minion) {
+	var detailed = card.getElementsByClassName('detailed')[0];
+	detailed.innerHTML = `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`;
+	card.getElementsByClassName('name')[0].innerHTML = minion.name;
+
+
+}
+
 function displayMinion(card, minion2, attacked = false) {
 	var health = card.getElementsByClassName('health')[0];
 	var attack = card.getElementsByClassName('attack')[0];
@@ -13,7 +21,6 @@ function displayMinion(card, minion2, attacked = false) {
 	var newAttackThisTurn = minion2.attackThisTurn;
 
 	var healthDiff = health.innerHTML ? +health.innerHTML - +newHealth : 0;
-	console.log(+health.innerHTML - +newHealth)
 	
 	if (attacked) {
 		addAnimation(imageAnimation, 'active', animationOffset)
