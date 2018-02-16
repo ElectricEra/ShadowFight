@@ -7,7 +7,7 @@ function fight(minion1, minion2) {
 let card1 = document.getElementById("card1");
 let card2 = document.getElementById("card2");
 
-let minions = [Swordmaster, Gog, Priest]
+let minions = [Swordmaster, Gog, Priest, Wolfraider]
 
 let minion1 = Object.create(minions[Math.floor(Math.random()*minions.length)]);
 let minion2 = Object.create(minions[Math.floor(Math.random()*minions.length)]);
@@ -38,6 +38,10 @@ card1.addEventListener('click', () => {
 			displayWinner(card1);
 			applyEffect(4, minion1, minion2)
 		}
+
+		applyEffect(2, minion1, minion2);
+		displayMinion(card2, minion2);
+		displayMinion(card1, minion1);
 	}
 })
 
@@ -58,6 +62,8 @@ card2.addEventListener('click', () => {
 		}
 
 		applyEffect(2, minion2, minion1);
+		displayMinion(card2, minion2);
+		displayMinion(card1, minion1);
 	}
 })
 

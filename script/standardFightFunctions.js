@@ -19,21 +19,25 @@ function coreHitLogic(minion1, minion2) {
 	//Setting current damage to the rolled value
 	minion1.damageToApply = minion1.attackThisTurn;
 
-	//If unit's armor can proc, if he has armor and if the attacking value is greater than 0
-	if (roll(minion2.armorProcChance) && minion2.armorDurability > 0 && minion1.attackThisTurn > 0) {
+	//If minion's attack is greater than 0
+	if (minion1.attackThisTurn > 0) {
+
+		//If unit's armor can proc, if he has armor and if the attacking value is greater than 0
+		if (roll(minion2.armorProcChance) && minion2.armorDurability > 0) {
+			
+			//Minion loses 1 armor durability
+			minion2.armorDurability -= 1;
+			
+			// If attack is greater than armor / is smaller than armor
+			if (minion2.armorPower < minion1.attackThisTurn) {
+				minion1.damageToApply = minion1.attackThisTurn - minion2.armorPower;
+			} else {
+				minion1.damageToApply = 0;
+			}
 		
-		//Minion loses 1 armor durability
-		minion2.armorDurability -= 1;
-		
-		// If attack is greater than armor / is smaller than armor
-		if (minion2.armorPower < minion1.attackThisTurn) {
-			minion1.damageToApply = minion1.attackThisTurn - minion2.armorPower;
 		} else {
-			minion1.damageToApply = 0;
+			console.log("Target\'s armor didn't work.")
 		}
-	
-	} else {
-		console.log("Target\'s armor didn't work.")
 	}
 	
 	//Applying damage
@@ -53,6 +57,35 @@ function hit(minion1, minion2) {
 	} else {
 		console.log("Unit wasn\'t able to hit.")
 	}
+}
+
+function simpleHit(minion1, minion2, attack) {
+	console.log(minion2.name, minion2.health);
+	console.log(attack, minion2.armorPower);
+
+	minion1.damageToApply = attack;
+	
+	if (roll(minion2.armorProcChance) && minion2.armorDurability > 0) {
+			
+		//Minion loses 1 armor durability
+		minion2.armorDurability -= 1;
+		
+		// If attack is greater than armor / is smaller than armor
+		if (minion2.armorPower < attack) {
+			minion1.damageToApply = attack - minion2.armorPower;
+		} else {
+			minion1.damageToApply = 0;
+		}
+	
+	} else {
+		console.log("Target\'s armor didn't work.")
+	}
+
+	//Applying damage
+	minion2.health -= minion1.damageToApply;
+
+
+	console.log(minion2.name, minion2.health);
 }
 
 function getAttack(minion) {
@@ -86,10 +119,52 @@ function applyEffect(whenToModify, minion1, minion2) {
 		if (minionAuraEffects.whenToModify === whenToModify) {
 			if (checkRace(minionAuraEffects.affectedRace, minion2.race) && checkLevel(minionAuraEffects.affectedLevel, minion2.level)) {
 				if (minionAuraEffects.maxProcs && roll(minionAuraEffects.chance)) {
-					
+
 					minionAuraEffects.effect.forEach((effect)=> {
-						minion1[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
+						console.log("GSfga")
+						if (effect.target === 'self') {
+							switch (effect.typeOfModifier) {
+								case 'clean':
+									minion1[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
+									break;	
+								default:
+									console.log("No such type");
+									break;
+							}
+						}
 					})
+
+				}
+			}
+		}
+	})
+
+	minion2.auraEffects.forEach((minionAuraEffects) => {
+
+		if (minionAuraEffects.whenToModify === whenToModify) {
+			if (checkRace(minionAuraEffects.affectedRace, minion1.race) && checkLevel(minionAuraEffects.affectedLevel, minion1.level)) {
+				if (minionAuraEffects.maxProcs && roll(minionAuraEffects.chance)) {
+
+					minionAuraEffects.effect.forEach((effect)=> {
+						console.log("GSfgafdsfsdfsadffdafds")
+						if (effect.target === 'enemy') {
+							console.log(effect);
+							switch (effect.typeOfModifier) {
+								case 'clean':
+									minion2[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
+									break;
+								case 'hit':
+									let asad = getValue(effect.valueMin, effect.valueMax);
+									console.log("Applying ---- ", asad);
+									simpleHit(minion2, minion1, asad);
+									break;
+								default:
+									console.log("No such type");
+									break;
+							}
+						}
+					})
+
 				}
 			}
 		}
