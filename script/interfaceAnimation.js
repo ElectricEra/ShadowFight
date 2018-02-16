@@ -3,14 +3,24 @@ const animationStep = 0.2
 const animationFrames = 1 / animationStep;
 const animationFrameOffset = animationStep * animationOffset;
 
-function addAnimationQueue() {}
+function animationQueue() {
+	let arrayOfEvents = [];
+	return {
+		addEvent: (timeOffset, events) => arrayOfEvents.push({timeOffset, action: events}),
+		start: (clearEvents = true) => {
+			console.log(arrayOfEvents)
+			arrayOfEvents.forEach(event => {console.log(event.action, event.timeOffset);setTimeout(event.action, event.timeOffset)}); 
+			if (clearEvents) { arrayOfEvents = []; }
+		}
+	}
+}
 
 function setIntoClassContainer(parent, className, value, index = 0) {
 	parent.getElementsByClassName(className)[index].innerHTML = value;
 }
 
 function displayMinionStaticData(card, minion) {
-	card.querySelector(".image > img").src = minion.img
+	card.querySelector(".image > img").src = minion.img;
 	setIntoClassContainer(card, 'name', minion.name);
 	setIntoClassContainer(card, 'level', minion.level);
 	setIntoClassContainer(card, 'race', minion.race);

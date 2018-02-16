@@ -18,10 +18,10 @@ let minion2Debouncer = true;
 prepareMinionToFight(minion1);
 prepareMinionToFight(minion2);
 
-displayMinion(card1, minion1);
-displayMinion(card2, minion2);
 displayMinionStaticData(card1, minion1);
 displayMinionStaticData(card2, minion2);
+displayMinion(card1, minion1);
+displayMinion(card2, minion2);
 
 applyEffect(0, minion1, minion2);
 applyEffect(0, minion2, minion1);
