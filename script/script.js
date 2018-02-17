@@ -28,42 +28,43 @@ applyEffect(0, minion2, minion1);
 
 card1.addEventListener('click', () => {
 	if (minion2.isAlive && minion1.isAlive && minion1Debouncer) {
+		let queue = animationQueue();
+	
 		minion1Debouncer = false;
 		setTimeout(()=>{minion1Debouncer = true}, 1100);
-		hit(minion1, minion2);
-		cardHitAnimation(document.querySelector('#card1 > .card'), 'move-right', animationOffset);
-		displayMinion(card1, minion1);
-		displayMinion(card2, minion2, true);
-		if (!minion2.isAlive) {
-			displayWinner(card1);
-			applyEffect(4, minion1, minion2)
-		}
 
-		applyEffect(2, minion1, minion2);
-		displayMinion(card2, minion2);
-		displayMinion(card1, minion1);
+		auraFlow(queue, 0, 1, card1, card2, minion1, minion2)
+		hitFlow(queue, 0, card1, card2, minion1, minion2, 'move-right');
+		if (!minion2.isAlive) {
+			queue.addEvent(1000, () => {
+				displayWinner(card1);
+				applyEffect(4, minion1, minion2)
+			})
+		} else {
+			auraFlow(queue, 1000, 2, card1, card2, minion1, minion2)
+		}
+		queue.start();
 	}
 })
 
 card2.addEventListener('click', () => {
 	if (minion1.isAlive && minion2.isAlive && minion2Debouncer) {
-		
-		applyEffect(1, minion2, minion1);
-		
+		let queue = animationQueue();
+
 		minion2Debouncer = false;
 		setTimeout(()=>{minion2Debouncer = true}, 1100);
-		hit(minion2, minion1);
-		cardHitAnimation(document.querySelector('#card2 > .card'), 'move-left', animationOffset)
-		displayMinion(card2, minion2);
-		displayMinion(card1, minion1, true);
-		if (!minion1.isAlive) {
-			displayWinner(card2);
-			applyEffect(4, minion2, minion1)
-		}
 
-		applyEffect(2, minion2, minion1);
-		displayMinion(card2, minion2);
-		displayMinion(card1, minion1);
+		auraFlow(queue, 0, 1, card2, card1, minion2, minion1)
+		hitFlow(queue, 0, card2, card1, minion2, minion1, 'move-left');
+		if (!minion1.isAlive) {
+			queue.addEvent(1000, () => {
+				displayWinner(card2);
+				applyEffect(4, minion2, minion1)
+			})
+		} else {
+			auraFlow(queue, 1000, 2, card2, card1, minion2, minion1)
+		}
+		queue.start();
 	}
 })
 

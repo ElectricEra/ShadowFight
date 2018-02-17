@@ -83,3 +83,27 @@ function cardHitAnimation(element, className, timeout) {
 function displayWinner(element) {
 	setTimeout(()=>element.classList.add('winner'),1500);
 }
+
+function hitFlow(queue, offset, card1, card2, minion1, minion2, className) {
+	queue.addEvent(0 + offset, () => {
+		hit(minion1, minion2)
+	});
+	queue.addEvent(0 + offset, () => {
+		cardHitAnimation(card1.querySelector('.card'), className, animationOffset)
+	});
+	queue.addEvent(0 + offset, () => {
+		displayMinion(card1, minion1);
+		displayMinion(card2, minion2, true);
+	});
+}
+
+function auraFlow(queue, offset, triggerTime, card1, card2, minion1, minion2) {
+	queue.addEvent(0 + offset, () => {
+		applyEffect(triggerTime, minion1, minion2);
+	});
+	queue.addEvent(0 + offset, () => {
+		displayMinion(card1, minion1);
+		displayMinion(card2, minion2);
+	});
+}
+
