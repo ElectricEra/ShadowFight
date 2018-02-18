@@ -1,7 +1,7 @@
 function fight(minion1, minion2) {
 	setTimeout( () => { card1.click(); }, 0);
-	setTimeout( () => { card2.click(); }, 1200);
-	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 2400);
+	setTimeout( () => { card2.click(); }, 2400);
+	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 5000);
 }
 
 let card1 = document.getElementById("card1");
@@ -31,7 +31,7 @@ card1.addEventListener('click', () => {
 		let queue = animationQueue();
 	
 		minion1Debouncer = false;
-		setTimeout(()=>{minion1Debouncer = true}, 1100);
+		setTimeout(()=>{minion1Debouncer = true}, 2000);
 
 		auraFlow(queue, 0, 1, card1, card2, minion1, minion2)
 		hitFlow(queue, 0, card1, card2, minion1, minion2, 'move-right');
@@ -41,7 +41,7 @@ card1.addEventListener('click', () => {
 				applyEffect(4, minion1, minion2)
 			})
 		} else {
-			auraFlow(queue, 1000, 2, card1, card2, minion1, minion2)
+			auraFlow(queue, 1500, 2, card1, card2, minion1, minion2)
 		}
 		queue.start();
 	}
@@ -52,7 +52,7 @@ card2.addEventListener('click', () => {
 		let queue = animationQueue();
 
 		minion2Debouncer = false;
-		setTimeout(()=>{minion2Debouncer = true}, 1100);
+		setTimeout(()=>{minion2Debouncer = true}, 2000);
 
 		auraFlow(queue, 0, 1, card2, card1, minion2, minion1)
 		hitFlow(queue, 0, card2, card1, minion2, minion1, 'move-left');
@@ -62,7 +62,7 @@ card2.addEventListener('click', () => {
 				applyEffect(4, minion2, minion1)
 			})
 		} else {
-			auraFlow(queue, 1000, 2, card2, card1, minion2, minion1)
+			auraFlow(queue, 1500, 2, card2, card1, minion2, minion1)
 		}
 		queue.start();
 	}
