@@ -9,16 +9,16 @@ I've just started my work on this project and have so many ideas, that it is har
 
 What will be next:
 
-- Minions will have passives
-- There will be more minions
+- More minions to come
 - There will be ability to create your own minions
 - Completely rewritten design
+- Better animation
+- Code refactoring
 
 What is planned:
 
 - Minions will have auras
 - Interactive fight (drag/drop minions to fight)
-- Animation
 - (Probably) sound
 
 It will be hard to stick to this plan, because of numerous ideas, but I will try.
