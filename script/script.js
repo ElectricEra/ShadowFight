@@ -7,7 +7,21 @@ function fight(minion1, minion2) {
 let card1 = document.getElementById("card1");
 let card2 = document.getElementById("card2");
 
+let card1select = card1.querySelector('select');
+let card2select = card2.querySelector('select');
+
 let minions = [Swordmaster, Gog, Priest, Wolfraider]
+
+minions.forEach( minion => {
+	option1 = document.createElement("option");
+	option2 = document.createElement("option");
+	option1.value = minion.name;
+	option2.value = minion.name;
+	option1.text = minion.name;
+	option2.text = minion.name;
+	card1select.add(option1);
+	card2select.add(option2);
+})
 
 let minion1 = Object.create(minions[Math.floor(Math.random()*minions.length)]);
 let minion2 = Object.create(minions[Math.floor(Math.random()*minions.length)]);
