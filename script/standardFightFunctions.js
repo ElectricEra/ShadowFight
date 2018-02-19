@@ -60,9 +60,6 @@ function hit(minion1, minion2) {
 }
 
 function simpleHit(minion1, minion2, attack) {
-	console.log(minion2.name, minion2.health);
-	console.log(attack, minion2.armorPower);
-
 	minion1.damageToApply = attack;
 	
 	if (roll(minion2.armorProcChance) && minion2.armorDurability > 0) {
@@ -83,9 +80,6 @@ function simpleHit(minion1, minion2, attack) {
 
 	//Applying damage
 	minion2.health -= minion1.damageToApply;
-
-
-	console.log(minion2.name, minion2.health);
 }
 
 function getAttack(minion) {
@@ -121,7 +115,6 @@ function applyEffect(whenToModify, minion1, minion2) {
 				if (minionAuraEffects.maxProcs && roll(minionAuraEffects.chance)) {
 
 					minionAuraEffects.effect.forEach((effect)=> {
-						console.log("GSfga")
 						if (effect.target === 'self') {
 							switch (effect.typeOfModifier) {
 								case 'clean':
@@ -146,16 +139,13 @@ function applyEffect(whenToModify, minion1, minion2) {
 				if (minionAuraEffects.maxProcs && roll(minionAuraEffects.chance)) {
 
 					minionAuraEffects.effect.forEach((effect)=> {
-						console.log("GSfgafdsfsdfsadffdafds")
 						if (effect.target === 'enemy') {
-							console.log(effect);
 							switch (effect.typeOfModifier) {
 								case 'clean':
 									minion2[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
 									break;
 								case 'hit':
 									let asad = getValue(effect.valueMin, effect.valueMax);
-									console.log("Applying ---- ", asad);
 									simpleHit(minion2, minion1, asad);
 									break;
 								default:
@@ -172,7 +162,6 @@ function applyEffect(whenToModify, minion1, minion2) {
 }
 
 function checkRace(race, raceToCkeck) {
-	console.log(race)
 	return race === 'all' || race.includes(raceToCkeck);
 }
 

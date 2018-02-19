@@ -8,39 +8,47 @@ function animationQueue() {
 	return {
 		addEvent: (timeOffset, events) => arrayOfEvents.push({timeOffset, action: events}),
 		start: (clearEvents = true) => {
-			console.log(arrayOfEvents)
-			arrayOfEvents.forEach(event => {console.log(event.action, event.timeOffset);setTimeout(event.action, event.timeOffset)}); 
+			arrayOfEvents.forEach(event => {setTimeout(event.action, event.timeOffset)}); 
 			if (clearEvents) { arrayOfEvents = []; }
 		}
 	}
 }
 
-function setIntoClassContainer(parent, className, value, index = 0) {
-	parent.getElementsByClassName(className)[index].innerHTML = value;
+function getElement(parent, selector) {
+	return parent.querySelector(selector);
+} 
+
+function setIntoContainer(container, value) {
+	container.innerHTML = value;
 }
 
 function displayMinionStaticData(card, minion) {
-	card.querySelector(".image > img").src = minion.img;
-	setIntoClassContainer(card, 'name', minion.name);
-	setIntoClassContainer(card, 'level', minion.level);
-	setIntoClassContainer(card, 'race', minion.race);
-	setIntoClassContainer(card, 'detailed', `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`);
+	getElement(card, ".image > img").src = minion.img;
+	setIntoContainer(getElement(card, '.name'), minion.name);
+	setIntoContainer(getElement(card, '.level'), minion.level);
+	setIntoContainer(getElement(card, '.race'), minion.race);
+	setIntoContainer(getElement(card, '.detailed'), `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`);
 }
 
 function displayMinion(card, minion2, attacked = false) {
-	var health = card.getElementsByClassName('health')[0];
-	var attack = card.getElementsByClassName('attack')[0];
-	var armor = card.getElementsByClassName('armor')[0];
-	var attackThisTurn = card.getElementsByClassName('attackThisTurn')[0];
-	var imageAnimation = card.getElementsByClassName('image-animation')[0];
+	let health = getElement(card, '.health');
+	let attack = getElement(card, '.attack');
+	let armor = getElement(card, '.armor');
+	let attackThisTurn = getElement(card, '.attackThisTurn');
+	let imageAnimation = getElement(card, '.image-animation');
 	
-	var newHealth = minion2.isAlive ? minion2.health : "RIP";
-	var newAttack = `${minion2.attackMin}-${minion2.attackMax}`;
-	var newArmor = `${minion2.armorPower}-${minion2.armorDurability}`;
-	var newAttackThisTurn = minion2.attackThisTurn;
+	let newHealth = minion2.isAlive ? minion2.health : "RIP";
+	let newAttack = `${minion2.attackMin}-${minion2.attackMax}`;
+	let newArmor = `${minion2.armorPower}-${minion2.armorDurability}`;
+	let newAttackThisTurn = minion2.attackThisTurn;
+	let healthDiff = health.innerHTML ? +health.innerHTML - +newHealth : 0;
+	
+	setIntoContainer(health, newHealth);
+	setIntoContainer(attack, newAttack);
+	setIntoContainer(armor, newArmor);
+	setIntoContainer(attackThisTurn, newAttackThisTurn);
+	setIntoContainer(imageAnimation, !isNaN(healthDiff) ? healthDiff : 'K.O.');
 
-	var healthDiff = health.innerHTML ? +health.innerHTML - +newHealth : 0;
-	
 	if (attacked) {
 		addAnimation(imageAnimation, 'active', animationOffset)
 	}
@@ -60,28 +68,22 @@ function displayMinion(card, minion2, attacked = false) {
 	if (attackThisTurn.innerHTML != newAttackThisTurn) {
 		addAnimation(attackThisTurn, 'highlight', animationOffset)
 	}
-
-	health.innerHTML = newHealth;
-	attack.innerHTML = newAttack;
-	armor.innerHTML = newArmor;
-	attackThisTurn.innerHTML = newAttackThisTurn;
-	imageAnimation.innerHTML = !isNaN(healthDiff) ? healthDiff : 'K.O.';
 }
 
 function addAnimation(element, className, timeout) {
-	element.classList.toggle(className, true)
+	setTimeout(()=>{element.classList.toggle(className, true)}, 0);
 	setTimeout(()=>{element.classList.toggle(className, false)}, timeout);
 }
 
 function cardHitAnimation(element, className, timeout) {
-	element.classList.toggle('lift', true);
+	setTimeout(()=>{element.classList.toggle('lift', true)}, 0);
 	setTimeout(()=>{element.classList.toggle(className, true)}, timeout * 0.2);
 	setTimeout(()=>{element.classList.toggle(className, false)}, timeout * 0.8);
 	setTimeout(()=>{element.classList.toggle('lift', false)}, timeout * 1.0);
 }
 
 function displayWinner(element) {
-	setTimeout(()=>element.classList.add('winner'),1500);
+	setTimeout(()=>element.classList.add('winner'), 1500);
 }
 
 function hitFlow(queue, offset, card1, card2, minion1, minion2, className) {
