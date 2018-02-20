@@ -1,7 +1,6 @@
 function prepareFight() {
 	prepareMinionToFight(minion1);
 	prepareMinionToFight(minion2);
-
 	displayMinionStaticData(card1, minion1);
 	displayMinionStaticData(card2, minion2);
 	displayMinion(card1, minion1);
@@ -42,13 +41,8 @@ minions.forEach( minion => {
 })
 
 
-let minion1;
-let minion2;
-
-minion1 = selectFighter(card1select, Math.floor(Math.random()*minions.length));
-minion2 = selectFighter(card2select, Math.floor(Math.random()*minions.length));
-
-console.log(minion1);
+let minion1 = selectFighter(card1select, Math.floor(Math.random()*minions.length));
+let minion2 = selectFighter(card2select, Math.floor(Math.random()*minions.length));
 
 let minion1Debouncer = true;
 let minion2Debouncer = true;
