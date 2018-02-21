@@ -50,10 +50,11 @@ function displayMinion(card, minion2, attacked = true) {
 	setIntoContainer(attackThisTurn, newAttackThisTurn);
 	setIntoContainer(imageAnimation, !isNaN(healthDiff) ? Math.abs(healthDiff) : 'K.O.');
 
-	if (attacked) {
+	if (minion2.hasBeenAttacked) {
+		minion2.hasBeenAttacked = false;
 		addAnimation(imageAnimation, 'active-' + typeOfDiff, animationOffset)
 	}
-	console.log(health.innerHTML, newHealth);
+	
 	if (health.innerHTML != newHealth) {
 		addAnimation(health, 'highlight', animationOffset)
 	}

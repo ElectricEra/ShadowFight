@@ -49,6 +49,7 @@ function coreHitLogic(minion1, minion2) {
 function hit(minion1, minion2) {
 	if (roll(minion1.canHit)) {
 		if (roll(minion1.hitChance)) {
+			minion2.hasBeenAttacked = true;
 			getAttack(minion1);
 			coreHitLogic(minion1, minion2);	
 		} else {
@@ -105,6 +106,7 @@ function prepareMinionToFight(minion) {
 	minion.damageToApply = 0;
 	minion.health = minion.basicHealth;
 	minion.isAlive = true;
+	minion.hasBeenAttacked = false;
 }
 
 function applyEffect(whenToModify, minion1, minion2) {
@@ -118,7 +120,8 @@ function applyEffect(whenToModify, minion1, minion2) {
 						if (effect.target === 'self') {
 							switch (effect.typeOfModifier) {
 								case 'clean':
-									minion1[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
+									minion1[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);
+									minion1.hasBeenAttacked = true;		
 									break;	
 								default:
 									console.log("No such type");
@@ -142,11 +145,12 @@ function applyEffect(whenToModify, minion1, minion2) {
 						if (effect.target === 'enemy') {
 							switch (effect.typeOfModifier) {
 								case 'clean':
-									minion2[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);		
+									minion2[effect.statToModify] += getValue(effect.valueMin, effect.valueMax);
+									minion2.hasBeenAttacked = true;		
 									break;
 								case 'hit':
-									let asad = getValue(effect.valueMin, effect.valueMax);
-									simpleHit(minion2, minion1, asad);
+									simpleHit(minion2, minion1, getValue(effect.valueMin, effect.valueMax));
+									minion1.hasBeenAttacked = true;
 									break;
 								default:
 									console.log("No such type");

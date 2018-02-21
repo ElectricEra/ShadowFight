@@ -8,8 +8,8 @@ function prepareFight() {
 }
 
 function fight(minion1, minion2) {
-	setTimeout( () => { card1.click(); }, 0);
-	setTimeout( () => { card2.click(); }, 2400);
+	setTimeout( () => { card1.querySelector('.card').click(); }, 0);
+	setTimeout( () => { card2.querySelector('.card').click(); }, 2400);
 	setTimeout( () => { minion1.isAlive && minion2.isAlive ? fight(minion1, minion2) : null }, 5000);
 }
 
