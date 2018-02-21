@@ -30,7 +30,7 @@ function displayMinionStaticData(card, minion) {
 	setIntoContainer(getElement(card, '.detailed'), `<b>${minion.auraName}</b> - ${minion.auraShortDescription}`);
 }
 
-function displayMinion(card, minion2, attacked = false) {
+function displayMinion(card, minion2, attacked = true) {
 	let health = getElement(card, '.health');
 	let attack = getElement(card, '.attack');
 	let armor = getElement(card, '.armor');
@@ -42,17 +42,18 @@ function displayMinion(card, minion2, attacked = false) {
 	let newArmor = `${minion2.armorPower}-${minion2.armorDurability}`;
 	let newAttackThisTurn = minion2.attackThisTurn;
 	let healthDiff = health.innerHTML ? +health.innerHTML - +newHealth : 0;
+	let typeOfDiff = healthDiff >= 0 ? healthDiff === 0 ? 'neutral' : 'negative' : 'positive';
 	
 	setIntoContainer(health, newHealth);
 	setIntoContainer(attack, newAttack);
 	setIntoContainer(armor, newArmor);
 	setIntoContainer(attackThisTurn, newAttackThisTurn);
-	setIntoContainer(imageAnimation, !isNaN(healthDiff) ? healthDiff : 'K.O.');
+	setIntoContainer(imageAnimation, !isNaN(healthDiff) ? Math.abs(healthDiff) : 'K.O.');
 
 	if (attacked) {
-		addAnimation(imageAnimation, 'active', animationOffset)
+		addAnimation(imageAnimation, 'active-' + typeOfDiff, animationOffset)
 	}
-	
+	console.log(health.innerHTML, newHealth);
 	if (health.innerHTML != newHealth) {
 		addAnimation(health, 'highlight', animationOffset)
 	}
