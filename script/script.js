@@ -104,6 +104,6 @@ card1button.addEventListener('click', () => {
 })
 
 card2button.addEventListener('click', () => {
-	minion2 = selectFighter(card1select, card1select.selectedIndex);
+	minion2 = selectFighter(card2select, card2select.selectedIndex);
 	prepareFight();
 })
