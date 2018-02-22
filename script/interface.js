@@ -110,4 +110,3 @@ function auraFlow(queue, offset, triggerTime, card1, card2, minion1, minion2) {
 		displayMinion(card2, minion2);
 	});
 }
-
