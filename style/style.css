@@ -5,5 +5,34 @@
 }
 
 body {
-	margin: 30px;
+	background-image: url(../arena.jpg);
+}
+
+header {
+	height: 60px;
+	background: white;
+	border-bottom: 1px solid black;
+	padding: 0 30px;
+}
+
+header > div {
+	padding: 20px 10px;
+	display: inline-block;
+	width: 300px;
+}
+
+.card-helper + .card-helper {
+	margin-left: 60px;
+}
+
+.card-helper {
+	height: 60px;
+}
+
+.card-1 {
+	background: #35bff2;
+}
+
+.card-2 {
+	background: #bb3333;
 }

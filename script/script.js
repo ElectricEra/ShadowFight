@@ -21,11 +21,12 @@ function selectFighter(select, index) {
 let card1 = document.getElementById("card1");
 let card2 = document.getElementById("card2");
 
-let card1select = card1.querySelector('select');
-let card2select = card2.querySelector('select');
+let card1select = document.querySelector('select.fighter-1');
+let card2select = document.querySelector('select.fighter-2');
+console.log(document.querySelector('select'));
 
-let card1button = card1.querySelector('button');
-let card2button = card2.querySelector('button');
+let card1button = document.querySelector('button.fighter-1');
+let card2button = document.querySelector('button.fighter-2');
 
 let minions = [Swordmaster, Gog, Priest, Wolfraider]
 

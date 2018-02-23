@@ -6,12 +6,21 @@
 	<link rel="stylesheet" href="style/card.css">
 </head>
 <body>
-	<div id="card1">
-		<div>
-			<select class='fighters'>
-			</select>
-			<button class='select-fighter'>Select</button>
+	<header>
+		<div class='card-helper card-1'>
+			<select class='fighter-1 fighters'></select>
+			<button class='fighter-1 select-fighter'>Select</button>
 		</div>
+		<div class='card-helper card-2'>
+			<select class='fighter-2 fighters'></select>
+			<button class='fighter-2 select-fighter'>Select</button>
+		</div>
+		<div>
+			<button id='auto-fight'>Auto fight</button>
+		</div>	
+	</header>
+	<div id="card1">
+
 		<div class='card'>
 			<div class='general'>
 				<div class='left'>
@@ -44,11 +53,6 @@
 	</div>
 
 	<div id="card2">
-		<div>
-			<select class='fighters'>
-			</select>
-			<button class='select-fighter'>Select</button>
-		</div>
 		<div class='card'>
 			<div class='general'>
 				<div class='left'>
@@ -80,13 +84,10 @@
 		</div>
 	</div>
 
-	<button id='auto-fight'>Auto fight</button>
-
 	<script src="minions/Human/Swordmaster.js"></script>
 	<script src="minions/Human/Priest.js"></script>
 	<script src="minions/Orc/Wolfraider.js"></script>
 	<script src="minions/Demon/Gog.js"></script>
-	<script src="script/minions.js"></script>
 	<script src="script/fight.js"></script>
 	<script src="script/interface.js"></script>
 	<script src="script/script.js"></script>
